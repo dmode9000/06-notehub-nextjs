@@ -6,6 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 //Services
 import { fetchNoteById } from "@/lib/api";
+//components
+import fetchIdError from "./error";
 //Styles
 import css from "./NoteDetails.module.css";
 import Loading from "@/app/loading";
@@ -25,7 +27,7 @@ export default function NoteDetailsClient() {
   });
 
   if (isLoading) return <Loading />;
-  if (error || !note) return <p>Could not fetch note </p>;
+  if (error || !note) return fetchIdError({ error });
 
   const formattedDate = note.updatedAt
     ? `Updated at: ${note.updatedAt}`

@@ -42,10 +42,7 @@ export default function NoteList({ notes, isOldData }: NoteListProps) {
             <p className={css.content}>{note.content}</p>
             <div className={css.footer}>
               <span className={css.tag}>{note.tag}</span>
-
-              <Link href={`/notes/${note.id}`} className={css.viewButton}>
-                View details
-              </Link>
+              <Link href={`/notes/${note.id}`}>View details</Link>
               <button className={css.button} onClick={() => mutate(note.id)} disabled={isDeleting}>
                 {isDeleting ? "Deleting..." : "Delete"}
               </button>
