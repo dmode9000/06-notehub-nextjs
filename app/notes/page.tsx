@@ -1,3 +1,5 @@
+//libraries
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 //components
 import NotesClient from "./Notes.client";
 //services
@@ -7,11 +9,18 @@ import css from "./NotesPage.module.css";
 
 // This is a Server Component
 export default async function NotesPage() {
-  const response = await fetchNotes();
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ["notes", 1, ""],
+    queryFn: () => fetchNotes({ page: 1, search: "" }),
+  });
 
   return (
     <div className={css.app}>
-      {response?.notes?.length > 0 && <NotesClient initialNotes={response.notes} />}
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <NotesClient />
+      </HydrationBoundary>
     </div>
   );
 }
