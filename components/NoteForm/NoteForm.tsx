@@ -68,13 +68,13 @@ export default function NoteForm({ closeFormModal }: NoteFormProps) {
       validationSchema={validationSchema}
     >
       <Form className={css.form}>
-        <fieldset className={css.formGroup}>
+        <div className={css.formGroup}>
           <label htmlFor={`${fieldId}-title`}>Title</label>
           <Field className={css.input} type="text" name="title" id={`${fieldId}-title`} />
           <ErrorMessage name="title" component="span" className={css.error} />
-        </fieldset>
+        </div>
 
-        <fieldset className={css.formGroup}>
+        <div className={css.formGroup}>
           <label htmlFor={`${fieldId}-content`}>Сontent</label>
           <Field
             as="textarea"
@@ -84,9 +84,9 @@ export default function NoteForm({ closeFormModal }: NoteFormProps) {
             rows={8}
           />
           <ErrorMessage name="content" component="span" className={css.error} />
-        </fieldset>
+        </div>
 
-        <fieldset className={css.formGroup}>
+        <div className={css.formGroup}>
           <label htmlFor={`${fieldId}-tag`}>Tag</label>
           <Field as="select" className={css.select} name="tag" id={`${fieldId}-tag`}>
             {noteTags.map((tag) => (
@@ -96,7 +96,7 @@ export default function NoteForm({ closeFormModal }: NoteFormProps) {
             ))}
           </Field>
           <ErrorMessage name="tag" component="span" className={css.error} />
-        </fieldset>
+        </div>
         <div className={css.actions}>
           <button type="button" className={css.cancelButton} onClick={closeFormModal}>
             Cancel
