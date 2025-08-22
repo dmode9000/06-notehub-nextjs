@@ -16,11 +16,7 @@ import { Note } from "@/types/note";
 // styles
 import css from "./NotesPage.module.css";
 
-interface Props {
-  initialNotes: Note[];
-}
-
-export default function NotesClient({ initialNotes }: Props) {
+export default function NotesClient() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPage, setSelectedPage] = useState<number>(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -36,7 +32,15 @@ export default function NotesClient({ initialNotes }: Props) {
     placeholderData: keepPreviousData,
   });
 
-  const closeModal = () => setIsModalOpen(false);
+  const openModal = () => {
+    setIsModalOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    document.body.style.overflow = "";
+  };
 
   useEffect(() => {
     if (isSuccess && searchQuery && data && !isPlaceholderData) {
@@ -64,12 +68,12 @@ export default function NotesClient({ initialNotes }: Props) {
           />
         )}
         {
-          <button className={css.button} onClick={() => setIsModalOpen(true)}>
+          <button className={css.button} onClick={openModal}>
             Create note +
           </button>
         }
       </header>
-      <NoteList notes={data?.notes || initialNotes} isOldData={isPlaceholderData} />
+      {data && <NoteList notes={data.notes} isOldData={isPlaceholderData} />}
       {isModalOpen && (
         <Modal onClose={closeModal}>
           <NoteForm closeFormModal={closeModal} />
