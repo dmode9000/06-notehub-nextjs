@@ -7,11 +7,10 @@ import { useParams } from "next/navigation";
 //Services
 import { fetchNoteById } from "@/lib/api";
 //components
-import fetchIdError from "./error";
+import FetchIdError from "./error";
 //Styles
 import css from "./NoteDetails.module.css";
 import Loading from "@/app/loading";
-import Error from "@/app/notes/error";
 
 //Client component
 export default function NoteDetailsClient() {
@@ -27,7 +26,8 @@ export default function NoteDetailsClient() {
   });
 
   if (isLoading) return <Loading />;
-  if (error || !note) return fetchIdError({ error });
+  if (error) return <FetchIdError error={error} />;
+  if (!note) return <FetchIdError error={{ message: "Note not found" } as Error} />;
 
   const formattedDate = note.updatedAt
     ? `Updated at: ${note.updatedAt}`

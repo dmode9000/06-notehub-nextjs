@@ -1,11 +1,11 @@
 "use client";
 
 type Props = {
-  error: Error | null;
+  error: Error;
 };
 
-const fetchIdError = ({ error }: Props) => {
-  return <p>Could not fetch note {error?.message || "Unknown error"}</p>;
+const FetchIdError = ({ error }: Props) => {
+  return <p>Could not fetch note {error.message}</p>;
 };
 
-export default fetchIdError;
+export default FetchIdError;

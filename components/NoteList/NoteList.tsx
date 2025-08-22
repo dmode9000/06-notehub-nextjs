@@ -28,6 +28,7 @@ export default function NoteList({ notes, isOldData }: NoteListProps) {
       queryClient.invalidateQueries({ queryKey: ["notes"] });
     },
     onError(error) {
+      toast.error("Failed to delete note");
       console.log("Error deleting: ", error);
     },
   });
